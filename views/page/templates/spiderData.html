@@ -1,0 +1,314 @@
+{% extends 'base_page.html' %}
+{% block title %}
+    爬取数据
+{% endblock %}
+
+
+{% block  nav %}
+    <nav class="iq-sidebar-menu">
+                    <ul id="iq-sidebar-toggle" class="side-menu">
+                        <li class="px-3 pt-3 pb-2 ">
+                            <span class="text-uppercase small font-weight-bold">首页</span>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/home" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">首页</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/articleData" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">微博文章</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/commentsData" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M17,16V3L13,5,10,3,7,5,3,3V17.83A3.13,3.13,0,0,0,5.84,21,3,3,0,0,0,9,18V17a1,1,0,0,1,1-1H20a1,1,0,0,1,1,1v1a3,3,0,0,1-3,3H6"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">微博评论</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/topic" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">微博热门话题</span>
+                            </a>
+                        </li>
+                        <li class="px-3 pt-3 pb-2 ">
+                            <span class="text-uppercase small font-weight-bold">数据分析</span>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/articleChar" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">文章分析</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/yuqingChar" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">舆情分析</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/analysisTopic" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">热门话题分析</span>
+                            </a>
+                        </li>
+                        <li class="px-3 pt-3 pb-2">
+                            <span class="text-uppercase small font-weight-bold">数据管理</span>
+                        </li>
+                        <li class="active sidebar-layout">
+                            <a href="/page/spiderData" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                    </svg>
+                                </i><span class="ml-2">爬取数据</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/articleData_temp" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                    </svg>
+                                </i><span class="ml-2">爬取结果</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/updateData" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                                    </svg>
+                                </i><span class="ml-2">文章数据更新</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/deleteData" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                                    </svg>
+                                </i><span class="ml-2">数据删除</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+{% endblock %}
+
+
+{% block content %}
+    <div class="card">
+
+        {% if message %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+        {% endif %}
+
+        <div class="card-body">
+            <div class="collapse" id="form-select-2">
+                <div class="card"><kbd class="bg-dark">
+                    <pre id="multiple-select-boxes" class="text-white"></pre>
+                </kbd></div>
+            </div>
+            <h4 class="card-title">选择爬取微博文章类型</h4>
+            <select multiple class="form-control choicesjs" id="sel2" name="sellist2">
+                <option>热门</option>
+                <option>同城</option>
+                <option>榜单</option>
+                <option>明星</option>
+                <option>搞笑</option>
+                <option>情感</option>
+                <option>周末</option>
+                <option>电影</option>
+                <option>美食</option>
+                <option>俄乌局势</option>
+                <option>国际</option>
+                <option>深度</option>
+                <option>财经</option>
+                <option>读书</option>
+                <option>摄影</option>
+                <option>车展</option>
+                <option>颜值</option>
+                <option>体育</option>
+                <option>数码</option>
+                <option>综艺</option>
+                <option>时尚</option>
+                <option>星座</option>
+                <option>军事</option>
+                <option>股市</option>
+                <option>房产</option>
+                <option>家居</option>
+                <option>萌宠</option>
+                <option>科技</option>
+                <option>科普</option>
+                <option>动漫</option>
+                <option>运动健身</option>
+                <option>旅游</option>
+                <option>瘦身</option>
+                <option>好物</option>
+                <option>历史</option>
+                <option>艺术</option>
+                <option>美妆</option>
+                <option>法律</option>
+                <option>设计</option>
+                <option>健康</option>
+                <option>音乐</option>
+                <option>游戏</option>
+                <option>新时代</option>
+                <option>校园</option>
+                <option>政务</option>
+                <option>养生</option>
+                <option>教育</option>
+                <option>婚恋</option>
+                <option>舞蹈</option>
+                <option>辟谣</option>
+                <option>公益</option>
+                <option>问答</option>
+                <option>三农</option>
+                <option>巴以</option>
+            </select>
+
+            <div class="form-group mt-3">
+                <h4 class="card-title">选择爬取页数</h4>
+                <select class="form-control" id="page-count">
+                    <option>爬取页数</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <a href="#" class="btn btn-primary mt-3" onclick="startCrawling()">开始爬取</a>
+            <div id="loading-spinner" class="d-none">
+                <i class="fas fa-spinner fa-spin"></i> 数据爬取并处理中...
+            </div>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+            <style>
+                #loading-spinner {
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 9999;
+                    background-color: rgba(255, 255, 255, 0.8); /* 半透明的背景色 */
+                    padding: 20px;
+                    border-radius: 10px;
+                    font-size: 20pt;
+                }
+            </style>
+            <script>
+                var selectedTypes = []; // 声明一个全局变量用于保存选择的内容
+                var selectedPage = ""; // 声明一个全局变量用于保存选择的页数
+
+                // 监听选择内容的变化
+                var selectTypes = document.getElementById("sel2");
+                selectTypes.addEventListener("change", function () {
+                    selectedTypes = []; // 每次选择发生变化时，清空已选择的内容
+                    var options = selectTypes.selectedOptions;
+                    for (var i = 0; i < options.length; i++) {
+                        selectedTypes.push(options[i].textContent);
+                    }
+                });
+
+                // 监听选择页数的变化
+                var selectCount = document.getElementById("page-count");
+                selectCount.addEventListener("change", function () {
+                    selectedPage = selectCount.value; // 将选择的页数保存到全局变量中
+                });
+
+                function startCrawling() {
+                    $('#loading-spinner').removeClass('d-none'); // 移除 "d-none" 类来显示加载动画
+
+                    var url = '/page/spiderArticles?types=' + selectedTypes.join(',') + '&page=' + selectedPage;
+                    window.location.href = url; // 跳转到指定页面
+                }
+            </script>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <div class="header-title">
+                <h4 class="card-title">爬取指定文章</h4>
+            </div>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <input class="form-control" id="url" placeholder="请输入文章地址">
+                </div>
+                <button type="button" class="btn btn-primary mr-2" onclick="startCrawling2()">开始爬取</button>
+            </form>
+        </div>
+        <script>
+            function startCrawling2() {
+                $('#loading-spinner').removeClass('d-none'); // 移除 "d-none" 类来显示加载动画
+                var http = document.getElementById("url").value;
+                var url = '/page/spiderArticle?url=' + http;
+                window.location.href = url; // 跳转到指定页面
+            }
+        </script>
+    </div>
+{% endblock %}
+
+
+{% block echarts %}
+
+{% endblock %}

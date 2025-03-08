@@ -1,0 +1,507 @@
+{% extends 'base_page.html' %}
+{% block title %}
+    文章分析
+{% endblock %}
+
+{% block  nav %}
+    <nav class="iq-sidebar-menu">
+        <ul id="iq-sidebar-toggle" class="side-menu">
+            <li class="px-3 pt-3 pb-2 ">
+                <span class="text-uppercase small font-weight-bold">首页</span>
+            </li>
+            <li class=" sidebar-layout">
+                <a href="/page/home" class="svg-icon">
+                    <i class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                    </i>
+                    <span class="ml-2">首页</span>
+                </a>
+            </li>
+            <li class=" sidebar-layout">
+                <a href="/page/articleData" class="svg-icon">
+                    <i class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                        </svg>
+                    </i>
+                    <span class="ml-2">微博文章</span>
+                </a>
+            </li>
+            <li class=" sidebar-layout">
+                <a href="/page/commentsData" class="svg-icon">
+                    <i class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M17,16V3L13,5,10,3,7,5,3,3V17.83A3.13,3.13,0,0,0,5.84,21,3,3,0,0,0,9,18V17a1,1,0,0,1,1-1H20a1,1,0,0,1,1,1v1a3,3,0,0,1-3,3H6"></path>
+                        </svg>
+                    </i>
+                    <span class="ml-2">微博评论</span>
+                </a>
+            </li>
+            <li class=" sidebar-layout">
+                <a href="/page/topic" class="svg-icon">
+                    <i class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                        </svg>
+                    </i>
+                    <span class="ml-2">微博热门话题</span>
+                </a>
+            </li>
+            <li class="px-3 pt-3 pb-2 ">
+                <span class="text-uppercase small font-weight-bold">数据分析</span>
+            </li>
+            <li class="active sidebar-layout">
+                <a href="/page/articleChar" class="svg-icon">
+                    <i class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>
+                        </svg>
+                    </i>
+                    <span class="ml-2">文章分析</span>
+                </a>
+            </li>
+            <li class=" sidebar-layout">
+                <a href="/page/yuqingChar" class="svg-icon">
+                    <i class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </i>
+                    <span class="ml-2">舆情分析</span>
+                </a>
+            </li>
+            <li class=" sidebar-layout">
+                <a href="/page/analysisTopic" class="svg-icon">
+                    <i class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                    </i>
+                    <span class="ml-2">热门话题分析</span>
+                </a>
+            </li>
+            <li class="px-3 pt-3 pb-2">
+                <span class="text-uppercase small font-weight-bold">数据管理</span>
+            </li>
+            <li class=" sidebar-layout">
+                <a href="/page/spiderData" class="svg-icon">
+                    <i class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                    </i><span class="ml-2">爬取数据</span>
+                </a>
+            </li>
+            <li class=" sidebar-layout">
+                <a href="/page/articleData_temp" class="svg-icon">
+                    <i class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                    </i><span class="ml-2">爬取结果</span>
+                </a>
+            </li>
+            <li class=" sidebar-layout">
+                <a href="/page/updateData" class="svg-icon">
+                    <i class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                        </svg>
+                    </i><span class="ml-2">文章数据更新</span>
+                </a>
+            </li>
+            <li class=" sidebar-layout">
+                <a href="/page/deleteData" class="svg-icon">
+                    <i class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                        </svg>
+                    </i><span class="ml-2">数据删除</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 mb-4 mt-1">
+                <div class="d-flex flex-wrap justify-content-between align-items-center">
+                    <h4 class="font-weight-bold">文章详情</h4>
+                    <a class="btn btn-primary"
+                       href="/page/spiderArticle?url={{ detailUrl }}?&type={{ type }}"
+                       onclick="startUpdate()">更新数据
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="loading-spinner" class="d-none">
+            <i class="fas fa-spinner fa-spin"></i> 数据更新并处理中...
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <style>
+            #loading-spinner {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 9999;
+                background-color: rgba(255, 255, 255, 0.8); /* 半透明的背景色 */
+                padding: 20px;
+                border-radius: 10px;
+                font-size: 20pt;
+            }
+        </style>
+        <script>
+            function startUpdate() {
+                $('#loading-spinner').removeClass('d-none'); // 移除 "d-none" 类来显示加载动画
+            }
+        </script>
+
+
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                    <tr class="table-active">
+                        <th scope="row">文章ID</th>
+                        <td><a href={{ detailUrl }} target="_blank">{{ defaultArticleID }}</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">点赞数</th>
+                        <td>👍{{ likeNum }}</td>
+                    </tr>
+                    <tr class="table-active">
+                        <th scope="row">评论数</th>
+                        <td>🔥{{ commentsLen }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">转发数</th>
+                        <td>🥇{{ reposts_count }}</td>
+                    </tr>
+                    <tr class="table-active">
+                        <th scope="row">IP</th>
+                        <td>{{ region }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">内容</th>
+                        <td>{{ content }}</td>
+                    </tr>
+                    <tr class="table-active">
+                        <th scope="row">发布时间</th>
+                        <td>{{ created_at }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">文章类型</th>
+                        <td>{{ type }}</td>
+                    </tr>
+                    <tr class="table-active">
+                        <th scope="row">作者名字</th>
+                        <td><a href={{ authorDetail }} target="_blank">{{ authorName }}</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">文章评论
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div id="datatable-1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                <div class="row">
+                                    <table id="datatable-2"
+                                           class="table data-table table-striped table-bordered dataTable" role="grid"
+                                           aria-describedby="datatable-1_info">
+                                        <thead>
+                                        <tr>
+                                            <th style="font-weight: bold">
+                                                评论人
+                                            </th>
+                                            <th style="font-weight: bold">
+                                                内容
+                                            </th>
+                                            <th style="font-weight: bold">
+                                                情感
+                                            </th>
+                                            <th style="font-weight: bold">
+                                                点赞量
+                                            </th>
+                                            <th style="font-weight: bold">
+                                                评论时间
+                                            </th>
+                                            <th style="font-weight: bold" class="text-center">
+                                                IP
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for comments in commentsList %}
+                                            <tr class="even">
+                                                <td style="width:150px" class="sorting_1">{#评论人#}
+                                                    {{ comments[5] }}
+                                                </td>
+                                                {#内容#}
+                                                <td style="width:500px">{{ comments[4] }}</td>
+                                                {#情感#}
+                                                {% if comments[8] =='消极' %}
+                                                    <td style="width:50px;color: red">{{ comments[8] }}</td>
+                                                {% elif comments[8] =='积极' %}
+                                                    <td style="width:50px;color: green">{{ comments[8] }}</td>
+                                                {% else %}
+                                                    <td style="width:50px">{{ comments[8] }}</td>
+                                                {% endif %}
+                                                {#点赞量#}
+                                                <td style="width:50px" class="text-center">{{ comments[2] }}</td>
+                                                {#评论时间#}
+                                                <td style="width:100px" class="text-center">{{ comments[1] }}</td>
+                                                {#IP#}
+                                                <td style="width:80px" class="text-center">{{ comments[3] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card card-block">
+                    <div class="card-header d-flex justify-content-between pb-0">
+                        <div class="header-title">
+                            <h4 class="card-title mb-0">情感类别占比图</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="sentiment" style="width: 100%;height: 450px"></div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="col-lg-6">
+            <div class="card card-block">
+                <div class="card-header d-flex justify-content-between pb-0">
+                    <div class="header-title">
+                         <h4 class="card-title mb-0">用户评论词云图</h4>
+                    </div>
+                </div>
+                 <div class="card-body d-flex justify-content-center align-items-center" style="height: 490px;">
+                    <img id="mainThree" src="/static/WordCloud_article/{{ defaultArticleID }}.jpg" alt="" style="max-width: 80%; height: auto; object-fit: contain;">
+                </div>
+            </div>
+        </div>
+
+{#        <div class="col-lg-6">#}
+{#            <div class="card card-block">#}
+{#                <div class="card-header d-flex justify-content-between pb-0">#}
+{#                    <div class="header-title">#}
+{#                        <h4 class="card-title mb-0">用户评论词云图</h4>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="card-body">#}
+{#                    <div id="mainThree" style="width: 100%;height: 450px;text-align: center">#}
+{#                        <img style="width: 100%" src="/static/WordCloud_article/{{ defaultArticleID }}.jpg" alt="">#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-block">
+                    <div class="card-header d-flex justify-content-between pb-0">
+                        <div class="header-title">
+                            <h4 class="card-title mb-0">评论IP位置分析图</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="mainTwo" style="width: 100%;height: 500px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-block">
+                    <div class="card-header d-flex justify-content-between pb-0">
+                        <div class="header-title">
+                            <h4 class="card-title mb-0">用户评论时间折线图</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="time" style="width: 100%;height:500px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block echarts %}
+    <script>
+        var chartDom = document.getElementById('sentiment');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+            title: {
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left'
+            },
+            series: [
+                {
+                    name: '情感个数',
+                    type: 'pie',
+                    radius: '80%',
+                    data: {{ sentimentData | tojson }},
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+
+    </script>
+
+    <script>
+        var chartDom = document.getElementById('mainTwo');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+            title: {
+                text: '评论IP发布地址地图',
+                left: 'center',
+                textStyle: {
+                    color: "#333",
+                    fontWeight: "bold"
+                }
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: function (params) {
+                    return params.name + '<br>评论个数： ' + params.value + ' 个'
+                }
+            },
+            visualMap: {
+                min: 0,
+                max: 200,
+                text: ['高', '低'],
+                realtime: true,
+                calulable: true,
+                inRange: {
+                    color: ['orange', 'green']
+                }
+            },
+            series: [{
+                type: 'map',
+                map: "china",
+                label: {
+                    normal: {
+                        show: true,
+                        color: "white",
+                        fontSize: '12'
+                    }
+                },
+                emphasis: {
+                    label: {
+                        show: true
+                    },
+                },
+                data:{{ commentRegionData | tojson }},
+                itemStyle: {
+                    normal: {
+                        areaColor: "skyblue",
+                        borderColor: "#fff"
+                    },
+                    emphasis: {
+                        areaColor: '#2b91b7'
+                    }
+                },
+                zoom: 1.4,
+                roam: true
+            }]
+        }
+
+        option && myChart.setOption(option);
+    </script>
+
+    <script>
+        var chartDom = document.getElementById('time');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+            xAxis: {
+                type: 'category',
+                data: {{ time_dates | tojson }}
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    data: {{ time_counts | tojson }},
+                    type: 'line',
+                    smooth: true
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+    </script>
+{% endblock %}

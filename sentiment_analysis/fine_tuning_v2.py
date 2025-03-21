@@ -1,3 +1,22 @@
+# Copyright 2025 kailkako/Awesome-Public-Opinion-Analysis-System made by Licheng Yu
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# ==================================================================
+# fine_tuning_v2.py
+# Description: 微调
+# ==================================================================
+
 import os
 import pandas as pd
 import torch
@@ -10,11 +29,9 @@ import logging
 
 # 使用transformers库进行中文文本分类任务的标准流程，包括数据预处理、模型加载、训练、评估及模型保存。
 
-
 # 日志配置
 # 设置日志级别为INFO，更低级别的消息（如 DEBUG）将被忽略。格式化日志输出，包含时间、级别和消息。
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
 
 # 配置类
 # Config类用于集中管理训练配置信息，方便后续引用和修改
@@ -23,10 +40,9 @@ class Config:
     BATCH_SIZE = 20
     LEARNING_RATE = 2e-5
     EPOCHS = 5
-    MODEL_PATH = 'bert-base-chinese'
+    MODEL_PATH = 'google-bert/bert-base-chinese'
     DATA_FILE = './data.csv'
     SAVE_PATH = './train_info'
-
 
 if not os.path.exists(Config.SAVE_PATH):
     # 如果目录不存在，创建它
@@ -37,7 +53,6 @@ if not os.path.exists(Config.SAVE_PATH):
 tokenizer = BertTokenizer.from_pretrained(Config.MODEL_PATH)
 model = BertForSequenceClassification.from_pretrained(Config.MODEL_PATH, num_labels=3)
 model.to('cuda')
-
 
 # 自定义数据集类
 # 定义了一个处理中文文本数据的Dataset子类，包括数据加载、编码、填充等预处理步骤。
@@ -69,7 +84,6 @@ class ChineseTextDataset(Dataset):
             'attention_mask': encoding['attention_mask'].flatten(),
             'labels': torch.tensor(label, dtype=torch.long)
         }
-
 
 # 数据准备与加载
 # 读取CSV文件，使用train_test_split分割训练集和测试集，并异常处理确保数据读取成功。

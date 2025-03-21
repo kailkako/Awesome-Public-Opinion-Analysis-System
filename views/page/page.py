@@ -1,10 +1,29 @@
+# Copyright 2025 kailkako/Awesome-Public-Opinion-Analysis-System
+# Author：Licheng Yu
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# =======================================================================================
+# page.py
+# Description: 定义了一个名为 page_app的 Blueprint，用于处理与文章数据相关的各种Web请求
+# =======================================================================================
+
 from flask import Flask, session, render_template, redirect, Blueprint, request, jsonify, url_for
 from spiders.main import save_to_sql, main_2
 from utils.base_page import *
 from utils.getEchartsData import *
 from spiders.main import main as startSpider
 from utils.topicAnalysis import *
-# from utils.topicAnalysis2 import getWeiAI
 
 page_app = Blueprint('page', __name__, url_prefix='/page', template_folder='templates')
 
@@ -105,6 +124,7 @@ def spiderArticle():
                            message=message
                            )
 
+
 # 爬取多个文章
 @page_app.route('/spiderArticles', methods=['GET'])
 def spiderArticles():
@@ -173,38 +193,6 @@ def topic():
                            ciTiaoList2=ciTiaoList[10:]
                            )
 
-
-# @page_app.route('/analysisTopic')
-# def analysisTopic():
-#     username = session.get('username')
-#     try:
-#         ciTiao = request.args.get('ciTiao')
-#         names, nums, mood_trend_data = getWeiAI(ciTiao)
-#         print(mood_trend_data)
-#         return render_template('analysisTopic2.html',
-#                                username=username,
-#                                names=names,
-#                                nums=nums,
-#                                ciTiao=ciTiao,
-#                                legend=mood_trend_data['legend'],
-#                                bs=mood_trend_data['data']['bs'],
-#                                xy=mood_trend_data['data']['xy'],
-#                                jq=mood_trend_data['data']['jq'],
-#                                fn=mood_trend_data['data']['fn'],
-#                                zx=mood_trend_data['data']['zx'],
-#                                kj=mood_trend_data['data']['kj'],
-#                                dates=mood_trend_data['dates']
-#                                )
-#     except Exception as e:
-#         print(f"An unexpected error occurred: {e}")
-#         message = "暂无分析结果，请重新选择话题"
-#         ciTiaoList = getCiTiaoList()
-#         return render_template('topic.html',
-#                                username=username,
-#                                message=message,
-#                                ciTiaoList1=ciTiaoList[:10],
-#                                ciTiaoList2=ciTiaoList[10:]
-#                                )
 
 @page_app.route('/analysisTopic')
 def analysisTopic():

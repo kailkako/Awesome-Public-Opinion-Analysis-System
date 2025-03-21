@@ -1,32 +1,29 @@
-# spiderContentStart-爬取文章数据  start_2-爬取单篇文章数据
-from .spiderContent import start as spiderContentStart, start_2
-from .spiderComments import start as spiderCommentsStart
+# Copyright 2025 kailkako/Awesome-Public-Opinion-Analysis-System
+# Author：Licheng Yu
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# ==================================================================
+# main.py
+# Description: 爬虫和情感分析主入口，调用爬虫模块和情感分析模块进行处理
+# ==================================================================
+
 from globalVariable import *
 from utils.databaseManage import *
-
-# engine = create_engine('mysql+pymysql://root:root@127.0.0.1/weiboarticles?charset=utf8mb4')
-# conn = connect(host='localhost', port=3306, user='root', password='root', database='weiboarticles')
-# cursor = conn.cursor()
-
-# def save_to_sql(articleDataFilePath, articleCommentsFilePath):
-#     try:
-#         # 读取新的 CSV 数据
-#         articleNewPd = pd.read_csv(articleDataFilePath)
-#         commentNewPd = pd.read_csv(articleCommentsFilePath)
-#
-#         # 保存到数据库
-#         with engine.begin() as connection:
-#             articleNewPd.to_sql('article', con=connection, if_exists='append', index=False)
-#             commentNewPd.to_sql('comments', con=connection, if_exists='append', index=False)
-#
-#         # 确保文件在数据成功保存后才删除
-#
-#         # os.remove(articleDataFilePath)
-#         # os.remove(articleCommentsFilePath)
-#
-#     except Exception as e:
-#         print(f"发生错误: {e}")
-
+from .spiderContent import start as spiderContentStart                      # 批量爬取文章数据  
+from .spiderContent import start_2 as spidertargetContentStart              # 指定单篇文章爬取数据
+from .spiderComments import start as spiderCommentsStart                    # 爬取评论数据
+from sentiment_analysis.analysis_comments import main as sentimentAnalysis  # 情感分析
 
 # 对csv文件中的内容去重
 def remove_duplicates_from_csv(input_csv_path, output_csv_path, unique_column):
@@ -36,14 +33,10 @@ def remove_duplicates_from_csv(input_csv_path, output_csv_path, unique_column):
     # 保存去重后的数据到新的CSV文件
     df.to_csv(output_csv_path, index=False)
 
-
+# 文章批量爬取+情感分析
 def main(types=[], page=0):
-    # print('开始爬取文章类别')
-    # spiderArticleCategoryStart()
-    # print('文章类别爬取完毕，存储在' + articleCategoryFilePath)
-
+    # 文件路径初始化
     articleCategoryFilePath, articleDataFilePath, articleCommentsFilePath = initGlobalVariable()
-
     print('开始爬取文章数据')
     spiderContentStart(types, page, articleCategoryFilePath, articleDataFilePath)
     print('文章数据爬取完毕')
@@ -53,13 +46,10 @@ def main(types=[], page=0):
     spiderCommentsStart(articleDataFilePath,articleCommentsFilePath)
     print('文章评论数据爬取完毕')
 
-
-    from sentiment_analysis.analysis_comments import main as sentimentAnalysis
     print('开始分析评论情感')
     sentimentAnalysis(articleCommentsFilePath)
     emotion_ratio(articleDataFilePath, articleCommentsFilePath)
     print('情感分析结束')
-
 
     print('开始存储数据')
     save_to_sql(articleDataFilePath,articleCommentsFilePath)
@@ -67,30 +57,29 @@ def main(types=[], page=0):
     print('存储数据完毕')
     return True
 
+# 指定单篇文章爬取+情感分析
 def main_2(url,type):
+    # 文件路径初始化
     articleCategoryFilePath, articleDataFilePath, articleCommentsFilePath = initGlobalVariable()
     print('开始爬取文章数据')
-    articleId=start_2(url,articleDataFilePath,type)
+    articleId=spidertargetContentStart(url,articleDataFilePath,type)
     print('文章数据爬取完毕')
 
     print('开始爬取文章评论数据')
     spiderCommentsStart(articleDataFilePath, articleCommentsFilePath)
     print('文章评论数据爬取完毕')
 
-    from sentiment_analysis.analysis_comments import main as sentimentAnalysis
     print('开始分析评论情感')
     sentimentAnalysis(articleCommentsFilePath)
-    # 分析一篇文章中负面情绪占比
     emotion_ratio(articleDataFilePath, articleCommentsFilePath)
     print('情感分析结束')
-
 
     print('开始存储数据')
     save_to_article(articleDataFilePath, articleCommentsFilePath, articleId)
     print('存储数据完毕')
     return articleId
 
-
+# 情感分析
 def emotion_ratio(articleDataFilePath, articleCommentsFilePath):
     # 读取comments CSV文件
     comments_df = pd.read_csv(articleCommentsFilePath)
@@ -134,8 +123,3 @@ def emotion_ratio(articleDataFilePath, articleCommentsFilePath):
     article_df.to_csv(articleDataFilePath, index=False)
 
     return article_df
-
-# if __name__ == '__main__':
-#     # save_to_sql(r'D:\PythonProject\weibo\spiders\data\articleContent_2024-05-19_19-23-40.csv',r'D:\PythonProject\weibo\spiders\data\articleComments_2024-05-19_19-23-40.csv')
-#      emotion_ratio(r'D:\PythonProject\weibo\spiders\data\articleContent_2024-05-31_14-56-24.csv',r'D:\PythonProject\weibo\spiders\data\articleComments_2024-05-31_14-56-24.csv')
-#     # emotion_ratio(globalVariable.articleDataFilePath, globalVariable.articleCommentsFilePath)

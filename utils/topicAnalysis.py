@@ -1,19 +1,41 @@
+# Copyright 2025 kailkako/Awesome-Public-Opinion-Analysis-System
+# Author：Licheng Yu
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# ==================================================================
+# topicAnalysis.py
+# Description: 针对微博热搜话题相关的分析功能
+# ==================================================================
+
 import json
 import matplotlib.pyplot as plt
 import requests
 from wordcloud import WordCloud
 from globalVariable import headers
 
-
+# 从微博热门搜索接口获取热门话题列表，并返回前20个话题
 def getCiTiaoList():
+    '''实现：使用 requests 库发送 GET 请求，解析返回的 JSON 数据，提取话题名称。'''
     response = requests.get('https://weibo.com/ajax/side/hotSearch', headers=headers)
     text = response.json()
     realtime_list = text['data']['realtime']
     word_scheme_list = [entry['word_scheme'].strip('#') for entry in realtime_list if 'word_scheme' in entry]
     return word_scheme_list[:20]
 
-
+# 对指定话题进行分析，获取话题的相关信息，如概述、情感占比、词云数据和典型观点
 def getWeiboAI(topicName):
+    '''实现：发送 GET 请求到微博 AI 分析接口，解析返回的 JSON 数据，提取所需信息。'''
     response = requests.get('https://ai.s.weibo.com/api/llm/analysis_tab.json?query=' + topicName, headers=headers)
     content = response.json()
     data = content['data']
@@ -25,7 +47,7 @@ def getWeiboAI(topicName):
     typical_viewpoint_list = typical_viewpoint.split('\n')
     return description_list, emotion, word_cloud, typical_viewpoint_list
 
-
+# 根据词云数据生成词云图
 def generate_wordcloud(data, topicName):
     # 将 JSON 字符串转换为 Python 对象
     data_list = json.loads(data)
@@ -39,7 +61,7 @@ def generate_wordcloud(data, topicName):
     wordcloud.to_file(wordCloudPath)
     return True
 
-
+# 解析情感占比数据，提取名称和数值
 def getCharData(data_str):
     data = json.loads(data_str)
     names = [item['name'] for item in data]
@@ -47,20 +69,3 @@ def getCharData(data_str):
     print(names)
     print(nums)
     return names, nums
-
-
-# if __name__ == '__main__':
-#     # ciTiaoList = getCiTiaoList()
-#     # topicName = '伊朗总统遇难'
-#     # description, emotion, word_cloud, typical_viewpoint = getWeiboAI(topicName)
-#     # generate_wordcloud(word_cloud, topicName)
-#
-#     data = [
-#         {"dark_color": "#86BD6F", "num": 55, "name": "恐惧", "val": 55, "show": 1, "color": "#A8ED8B"},
-#         {"dark_color": "#928BCB", "num": 22, "name": "悲伤", "val": 22, "show": 1, "color": "#B7AEFE"},
-#         {"dark_color": "#74ADB1", "num": 14, "name": "平和", "val": 14, "show": 1, "color": "#91D9DE"},
-#         {"dark_color": "#7490B1", "num": 6, "name": "疑惑", "val": 6, "show": 1, "color": "#91B5DE"},
-#         {"dark_color": "#CC7979", "num": 2, "name": "生气", "val": 2, "show": 1, "color": "#FF9898"},
-#         {"dark_color": "#B4B65D", "num": 1, "name": "感动", "val": 1, "show": 1, "color": "#E2E475"}
-#     ]
-#     getCharData(data)

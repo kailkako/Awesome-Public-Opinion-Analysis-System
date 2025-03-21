@@ -1,3 +1,22 @@
+# Copyright 2025 kailkako/Awesome-Public-Opinion-Analysis-System made by Licheng Yu
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# ==================================================================
+# train.py
+# Description: 训练
+# ==================================================================
+
 import os
 import pandas as pd
 import torch
@@ -18,7 +37,7 @@ class Config:
     BATCH_SIZE = 20
     LEARNING_RATE = 2e-5
     EPOCHS = 5
-    MODEL_PATH = 'bert-base-chinese'
+    MODEL_PATH = 'google-bert/bert-base-chinese'
     DATA_FILE = './data.csv'
     SAVE_PATH = '.save_info'
     LOG_DIR = './tensorboard_logs'

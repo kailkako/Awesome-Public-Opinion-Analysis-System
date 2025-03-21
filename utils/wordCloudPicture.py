@@ -1,7 +1,22 @@
-'''
-    生成文章分析词云图
-    改图像直接改——comment.jpg
-'''
+# Copyright 2025 kailkako/Awesome-Public-Opinion-Analysis-System
+# Author：Licheng Yu
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# ==================================================================
+# wordCloudPicture.py
+# Description: 生成文章分析词云图（如需改词云图形状：更换comment.jpg）
+# ==================================================================
 
 import jieba
 from wordcloud import WordCloud

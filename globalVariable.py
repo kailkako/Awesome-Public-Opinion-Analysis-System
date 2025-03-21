@@ -1,3 +1,23 @@
+# Copyright 2025 kailkako/Awesome-Public-Opinion-Analysis-System
+# Author：Licheng Yu
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# ================================================================================
+# globalVariable.py
+# Description: 定义和初始化系统中所需的全局变量，包括 HTTP 请求头信息和文件路径
+# ================================================================================
+
 import os
 from datetime import datetime
 
@@ -6,7 +26,6 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0'
 }
 
-
 def initGlobalVariable():
     current_time = datetime.now()
     formatted_time = current_time.strftime("%Y-%m-%d_%H-%M-%S")
@@ -14,7 +33,6 @@ def initGlobalVariable():
     articleCommentsFilePath = r'spiders\data\articleComments_' + formatted_time + '.csv'
     articleCategoryFilePath = r'spiders\data\articleCategory.csv'
     return articleCategoryFilePath, articleDataFilePath, articleCommentsFilePath
-
 
 if __name__ == '__main__':
     initGlobalVariable()

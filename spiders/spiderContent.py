@@ -206,11 +206,15 @@ def start_2(url, articleDataFilePath,type):
 
 # 获取文章ID
 def getId(url):
-    '''具体格式: [https://weibo.com/用户ID/文章ID]. 如[https://weibo.com/1784473157/Ph0NTo2Ba]'''
-
+    '''
+       从文章链接中提取文章ID
+       在微博网页版点击具体文章发表时间后复制文章链接, 格式形如[https://weibo.com/用户ID/文章ID?pagetype=文章类型]
+    '''
     # 找到最后一个斜杠的位置
     last_slash_pos = url.rfind('/')
-    # 提取斜杠后
-    if last_slash_pos != -1:
-        return url[last_slash_pos + 1:]
+    # 找到问号的位置
+    question_mark_pos = url.find('?', last_slash_pos)
+    # 提取斜杠和问号之间的部分
+    if last_slash_pos != -1 and question_mark_pos != -1:
+        return url[last_slash_pos + 1:question_mark_pos]
     return None

@@ -204,11 +204,9 @@ def analysisTopic():
         names, nums = getCharData(emotion)
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
-        message = "暂无分析结果，请重新选择话题"
         ciTiaoList = getCiTiaoList()
         return render_template('topic.html',
                                username=username,
-                               message=message,
                                ciTiaoList1=ciTiaoList[:10],
                                ciTiaoList2=ciTiaoList[10:]
                                )

@@ -28,8 +28,8 @@ matplotlib.use('agg') # 后端渲染或者用'svg'
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
-def stopWordList():
-    with open('utils/stopWords.txt', encoding='utf8') as f:
+def stopwordList():
+    with open('utils/stopwords.txt', encoding='utf8') as f:
         return [line.strip() for line in f.readlines()]
 
 
@@ -44,7 +44,7 @@ def get_img(id, text):
     try:
         # 使用 jieba 对文本进行分词
         cut = jieba.cut(text)
-        newCut = [word for word in cut if word not in stopWordList()]
+        newCut = [word for word in cut if word not in stopwordList()]
 
         # 将处理后的词用空格连接成一个字符串
         string = ' '.join(newCut)

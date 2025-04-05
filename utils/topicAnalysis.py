@@ -35,7 +35,7 @@ def getCiTiaoList():
 
 # 对指定话题进行分析，获取话题的相关信息，如概述、情感占比、词云数据和典型观点
 def getWeiboAI(topicName):
-    '''实现：发送 GET 请求到微博 AI 分析接口，解析返回的 JSON 数据，提取所需信息。'''
+    '''实现：发送 GET 请求到微博智搜分析接口，解析返回的 JSON 数据，提取所需信息。'''
     response = requests.get('https://ai.s.weibo.com/api/llm/analysis_tab.json?query=' + topicName, headers=headers)
     content = response.json()
     data = content['data']

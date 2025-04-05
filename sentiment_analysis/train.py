@@ -1,22 +1,3 @@
-# Copyright 2025 kailkako/Awesome-Public-Opinion-Analysis-System made by Licheng Yu
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# ==================================================================
-# train.py
-# Description: 训练
-# ==================================================================
-
 import os
 import pandas as pd
 import torch
@@ -26,7 +7,6 @@ from transformers import BertTokenizer, BertForSequenceClassification
 from sklearn.metrics import precision_score, recall_score, f1_score
 from sklearn.model_selection import train_test_split
 import logging
-from torch.utils.tensorboard import SummaryWriter
 
 # 日志配置
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -39,8 +19,7 @@ class Config:
     EPOCHS = 5
     MODEL_PATH = 'google-bert/bert-base-chinese'
     DATA_FILE = './data.csv'
-    SAVE_PATH = '.save_info'
-    LOG_DIR = './tensorboard_logs'
+    SAVE_PATH = './MyBERT'
 
 if not os.path.exists(Config.SAVE_PATH):
     os.makedirs(Config.SAVE_PATH)
@@ -49,9 +28,6 @@ if not os.path.exists(Config.SAVE_PATH):
 tokenizer = BertTokenizer.from_pretrained(Config.MODEL_PATH)
 model = BertForSequenceClassification.from_pretrained(Config.MODEL_PATH, num_labels=3)
 model.to('cuda')
-
-# 初始化 TensorBoard Writer
-writer = SummaryWriter(Config.LOG_DIR)
 
 # 自定义数据集类
 class ChineseTextDataset(Dataset):
@@ -145,13 +121,6 @@ def train_epoch(model, data_loader, optimizer, device, writer, epoch):
                 f'Precision: {precision:.4f}, Recall: {recall:.4f}, F1 Score: {f1:.4f}'
             )
 
-        # 记录到 TensorBoard
-        writer.add_scalar('Loss/train', loss.item(), epoch * len(data_loader) + step)
-        writer.add_scalar('Accuracy/train', accuracy, epoch * len(data_loader) + step)
-        writer.add_scalar('Precision/train', precision, epoch * len(data_loader) + step)
-        writer.add_scalar('Recall/train', recall, epoch * len(data_loader) + step)
-        writer.add_scalar('F1/train', f1, epoch * len(data_loader) + step)
-
     return accuracy, total_loss / len(data_loader), precision, recall, f1
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -162,9 +131,6 @@ for epoch in range(Config.EPOCHS):
         f'Epoch {epoch + 1}, Loss: {train_loss:.4f}, Accuracy: {accuracy:.4f}, '
         f'Precision: {precision:.4f}, Recall: {recall:.4f}, F1 Score: {f1:.4f}'
     )
-
-# 关闭 TensorBoard Writer
-writer.close()
 
 model_directory = Config.SAVE_PATH
 model.save_pretrained(model_directory)

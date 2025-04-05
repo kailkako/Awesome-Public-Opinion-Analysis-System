@@ -1,3 +1,5 @@
+os
+logging
 lxml
 torch
 transformers

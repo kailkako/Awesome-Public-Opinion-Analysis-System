@@ -86,7 +86,7 @@ test_loader = DataLoader(test_dataset, batch_size=Config.BATCH_SIZE)
 optimizer = AdamW(model.parameters(), lr=Config.LEARNING_RATE)
 
 # 训练函数
-def train_epoch(model, data_loader, optimizer, device, writer, epoch):
+def train_epoch(model, data_loader, optimizer, device, epoch):
     model.train()
     total_loss = 0
     total_correct = 0
@@ -126,7 +126,7 @@ def train_epoch(model, data_loader, optimizer, device, writer, epoch):
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 for epoch in range(Config.EPOCHS):
-    accuracy, train_loss, precision, recall, f1 = train_epoch(model, train_loader, optimizer, device, writer, epoch)
+    accuracy, train_loss, precision, recall, f1 = train_epoch(model, train_loader, optimizer, device, epoch)
     logging.info(
         f'Epoch {epoch + 1}, Loss: {train_loss:.4f}, Accuracy: {accuracy:.4f}, '
         f'Precision: {precision:.4f}, Recall: {recall:.4f}, F1 Score: {f1:.4f}'

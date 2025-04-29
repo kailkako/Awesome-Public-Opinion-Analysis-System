@@ -4,18 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}首页{% endblock %}</title>
-
     <link rel="stylesheet" href="/static/css/backend-plugin.min.css">
     <link rel="stylesheet" href="/static/css/backend.css">
     <meta name="referrer" content="no-referrer"/>
 </head>
 <body class="  ">
+
 <!-- loader Start -->
 <div id="loading">
     <div id="loading-center">
     </div>
 </div>
 <!-- loader END -->
+
 <!-- Wrapper Start -->
 <div class="wrapper">
     <div class="iq-sidebar  sidebar-default  ">
@@ -50,6 +51,9 @@
                                 </i>
                                 <span class="ml-2">首页</span>
                             </a>
+                        </li>
+                        <li class="px-3 pt-3 pb-2 ">
+                            <span class="text-uppercase small font-weight-bold">数据概览</span>
                         </li>
                         <li class=" sidebar-layout">
                             <a href="/page/articleData" class="svg-icon">
@@ -127,7 +131,7 @@
                             </a>
                         </li>
                         <li class="px-3 pt-3 pb-2">
-                            <span class="text-uppercase small font-weight-bold">数据管理</span>
+                            <span class="text-uppercase small font-weight-bold">数据爬取</span>
                         </li>
                         <li class=" sidebar-layout">
                             <a href="/page/spiderData" class="svg-icon">
@@ -161,6 +165,9 @@
                                     </svg>
                                 </i><span class="ml-2">文章数据更新</span>
                             </a>
+                        </li>
+                        <li class="px-3 pt-3 pb-2">
+                            <span class="text-uppercase small font-weight-bold">数据管理</span>
                         </li>
                         <li class=" sidebar-layout">
                             <a href="/page/deleteData" class="svg-icon">
@@ -243,8 +250,8 @@
             </nav>
         </div>
     </div>
-    <div class="content-page">
 
+    <div class="content-page">
         {% block content %}
             <div class="container-fluid">
                 <div class="row">
@@ -373,11 +380,10 @@
                 </div>
             </div>
         {% endblock %}
-
-
     </div>
 </div>
 <!-- Wrapper End-->
+
 <footer class="iq-footer">
     <div class="container-fluid">
         <div class="row">
@@ -389,6 +395,7 @@
         </div>
     </div>
 </footer>
+
 <script src="/static/echarts.min.js"></script>
 <script src="/static/china.js"></script>
 {% block echarts %}
@@ -464,10 +471,10 @@
                 }]
             })
         }, 2000)
-
         option && myCharts.setOption(option);
-
     </script>
+
+<!-- 各微博类型占比饼状图 -->
     <script>
         var chartDom = document.getElementById('mainTwo');
         var myChart = echarts.init(chartDom);
@@ -485,27 +492,32 @@
                 orient: 'vertical',
                 left: 'left',
                 padding: [10, 20, 30, 20],
+                itemWidth: 20,               // 图例宽度
+                itemHeight: 15,              // 图例高度
+                textStyle: {fontSize: 12}    // 图例文字大小
             },
             series: [
-                {
-                    name: '博客类型占比',
-                    type: 'pie',
-                    radius: '50%',
-                    data: {{ typeChart |tojson }},
-                    emphasis: {
-                        itemStyle: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
+            {
+                name: '博客类型占比',
+                type: 'pie',
+                radius: '70%',
+                data: {{ typeChart |tojson }},
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
-                }
-            ]
-        };
-
+                },
+                label: {show: false},       // 图例文字
+                labelLine: {show: false}    // 图例线条
+            }
+        ]
+    };
         option && myChart.setOption(option);
-
     </script>
+
+<!-- 文章情绪个数统计图 -->
     <script>
         var chartDom = document.getElementById('mainThree');
         var myChart = echarts.init(chartDom);
@@ -516,16 +528,15 @@
                 trigger: 'item'
             },
             legend: {
-                top: '5%',
-                left: 10,
-                right: 10,
+                //orient: 'vertical',  默认为水平
+                left: 20,
                 type: 'scroll',
             },
             series: [
                 {
                     name: '文章情绪个数',
                     type: 'pie',
-                    radius: ['60%', '50%'],
+                    radius: ['70%', '50%'],
                     avoidLabelOverlap: false,
                     label: {
                         show: false,
@@ -545,10 +556,9 @@
                 }
             ]
         };
-
         option && myChart.setOption(option);
-
     </script>
+
 {% endblock %}
 <script src="/static/js/backend-bundle.min.js"></script>
 <script src="/static/js/customizer.js"></script>

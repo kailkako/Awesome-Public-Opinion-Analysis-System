@@ -179,37 +179,37 @@
                                             <th>
                                                 <input type="checkbox" id="selectAll">
                                             </th>
-                                            <th style="font-weight: bold">文章ID</th>
-                                            <th style="font-weight: bold">点赞量</th>
-                                            <th style="font-weight: bold">转发量</th>
-                                            <th style="font-weight: bold">评论量</th>
-                                            <th style="font-weight: bold">类型</th>
-                                            <th style="font-weight: bold">内容</th>
-                                            <th style="font-weight: bold">发布时间</th>
+                                            <th style="font-weight: bold" class="text-center">文章ID</th>
+                                            <th style="font-weight: bold" class="text-center">点赞量</th>
+                                            <th style="font-weight: bold" class="text-center">转发量</th>
+                                            <th style="font-weight: bold" class="text-center">评论量</th>
+                                            <th style="font-weight: bold" class="text-center">类型</th>
+                                            <th style="font-weight: bold" class="text-center">内容</th>
+                                            <th style="font-weight: bold" class="text-center">发布时间</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         {% for article in articeList %}
-                                            <tr class="even">
+                                            <tr class="text-center">
                                                 <td>
                                                     <input type="checkbox" class="article-checkbox"
                                                            value="{{ article[0] }}">
                                                 </td>
-                                                <td style="width:150px" class="sorting_1">
+                                                <td style="width:150px" class="text-center">
                                                     <a href="{{ article[8] }}" target="_blank">{{ article[0] }}</a>
                                                 </td>
-                                                <td style="width:70px">👍{{ article[1] }}</td>
-                                                <td style="width:70px">🥇{{ article[3] }}</td>
-                                                <td style="width:70px">🔥{{ article[2] }}</td>
-                                                <td style="width:50px" class="text-right">{{ article[7] }}</td>
-                                                <td style="width:300px" class="text-right">
+                                                <td style="width:70px" class="text-center">👍{{ article[1] }}</td>
+                                                <td style="width:70px" class="text-center">🥇{{ article[3] }}</td>
+                                                <td style="width:70px" class="text-center">🔥{{ article[2] }}</td>
+                                                <td style="width:50px" class="text-center">{{ article[7] }}</td>
+                                                <td style="width:300px" class="text-left">
                                                     {% if article[5]|length > 100 %}
                                                         {{ article[5][:100] }}......
                                                     {% else %}
                                                         {{ article[5] }}
                                                     {% endif %}
                                                 </td>
-                                                <td style="width:100px" class="text-right">{{ article[6] }}</td>
+                                                <td style="width:100px" class="text-center">{{ article[6] }}</td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>

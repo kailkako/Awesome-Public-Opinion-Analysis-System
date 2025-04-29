@@ -200,15 +200,15 @@
                                         <tbody>
                                         {% for article in articeList %}
                                             <tr class="even">
-                                                <td style="width:10%" class="text-center">{#文章id#}
+                                                <td style="width:14%" class="text-center">{#文章id#}
                                                     <a href="{{ article[8] }}" target="_blank">
                                                         {{ article[0] }}
                                                     </a>
                                                 </td>
                                                 {#点赞量#}
-                                                <td style="width:12%" class="text-center">{{ article[1] }}</td>
+                                                <td style="width:10%" class="text-center">{{ article[1] }}</td>
                                                 {#评论量#}
-                                                <td style="width:12%" class="text-center">{{ article[2] }}</td>
+                                                <td style="width:10%" class="text-center">{{ article[2] }}</td>
                                                 {#类型#}
                                                 <td style="width:8%" class="text-center">{{ article[7] }}</td>
                                                 {#作者#}
@@ -226,9 +226,9 @@
                                                     {% endif %}
                                                 </td>
                                                 {#发布时间#}
-                                                <td style="width:8%" class="text-right">{{ article[6] }}</td>
+                                                <td style="width:10%" class="text-center">{{ article[6] }}</td>
                                                 {#分析#}
-                                                <td style="width:8%" class="text-right"><a
+                                                <td style="width:8%" class="text-center"><a
                                                         href="/page/articleChar?articleId={{ article[0] }}"
                                                         class="btn btn-primary btn-sm ">分析</a></td>
                                             </tr>

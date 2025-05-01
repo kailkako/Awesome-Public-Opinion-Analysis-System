@@ -17,9 +17,8 @@
           </div>
     </div>
     <!-- loader END -->
-
       <div class="wrapper">
-    <section class="login-content" style="background-image: url(https://img0.baidu.com/it/u=4260343253,426122526&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800);background-repeat: no-repeat;background-size: cover">
+    <section class="login-content" style="background-image: url(https://yubaibaio-1312967958.cos.ap-chongqing.myqcloud.com/images/20250501210118.jpeg?w=1280&h=800);background-repeat: no-repeat;background-size: cover">
          <div class="container h-100">
             <div class="row align-items-center justify-content-center h-100">
                <div class="col-md-5">
@@ -30,16 +29,16 @@
                            <img src="https://weibo.com/favicon.ico" class="img-fluid rounded-normal light-logo" alt="logo">
                         </div>
                         <h3 class="mb-3 font-weight-bold text-center">登录</h3>
-                        <p class="text-center text-secondary mb-4">欢迎使用微博舆情分析系统</p>
+                        <p class="text-center text-secondary mb-4">欢迎使用基于Flask框架的社交平台网络舆情分析系统</p>
                         <div class="mb-5">
-                            <p class="line-around text-secondary mb-0"><span class="line-around-1">输入您的用户名和密码</span></p>
+                            <p class="line-around text-secondary mb-0"><span class="line-around-1">请输入用户名和密码</span></p>
                         </div>
                         <form method="POST" action="/user/login">
                            <div class="row">
                               <div class="col-lg-12">
                                  <div class="form-group">
                                     <label class="text-secondary">用户名</label>
-                                    <input class="form-control" name="username" type="text" placeholder="请输入您的用户名">
+                                    <input class="form-control" name="username" type="text" placeholder="请输入用户名">
                                  </div>
                               </div>
                               <div class="col-lg-12 mt-2">
@@ -47,14 +46,17 @@
                                      <div class="d-flex justify-content-between align-items-center">
                                          <label class="text-secondary">密码</label>
                                      </div>
-                                    <input class="form-control" name="password" type="password" placeholder="请输入您的密码">
+                                    <input class="form-control" name="password" type="password" placeholder="请输入密码">
                                  </div>
                               </div>
                            </div>
                            <button type="submit" class="btn btn-primary btn-block mt-2">登录</button>
                            <div class="col-lg-12 mt-3">
-                                <p class="mb-0 text-center">还没有账号?  <a href="/user/register">注册</a></p>
-                           </div>
+                              <div class="d-flex justify-content-between">
+                                 <p class="mb-0">忘记密码?  <a href="/user/retrieve_pwd">点此找回</a></p>
+                                 <p class="mb-0">没有账号?  <a href="/user/register">点此注册</a></p>  
+                              </div>
+                          </div>
                         </form>
                      </div>
                       {% endblock %}

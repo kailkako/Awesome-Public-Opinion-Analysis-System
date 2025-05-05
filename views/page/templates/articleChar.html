@@ -378,18 +378,23 @@
                 left: 'center'
             },
             tooltip: {
-                trigger: 'item'
+                trigger: 'item',
             },
             legend: {
                 orient: 'vertical',
-                left: 'left'
+                left: 'left',
+                textStyle: {fontSize: 20},  // 图例文字大小
+                itemWidth: 30,   // 图例图标宽度
+                itemHeight: 20   // 图例图标高度
             },
             series: [
                 {
                     name: '情感个数',
                     type: 'pie',
-                    radius: '80%',
+                    radius: '75%',
                     data: {{ sentimentData | tojson }},
+                    label: { show: false},  // 取消文字标签
+                    labelLine: {show: false},  // 取消指示线
                     emphasis: {
                         itemStyle: {
                             shadowBlur: 10,

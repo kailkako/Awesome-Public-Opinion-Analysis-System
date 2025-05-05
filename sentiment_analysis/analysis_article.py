@@ -32,14 +32,14 @@ df = pd.read_csv(csv_file)
 
 # 加载分词器和模型
 tokenizer = BertTokenizer.from_pretrained(model_directory)
-model = BertForSequenceClassification.from_pretrained(model_directory, num_labels=3)
+model = BertForSequenceClassification.from_pretrained(model_directory, ignore_mismatched_sizes=True, num_labels=2)
 model.eval()  # 将模型设置为评估模式，在评估模式下，模型会关闭一些在训练时使用的特殊层（如 Dropout），以确保预测结果的稳定性。
 
 # 检查是否有可用的GPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
-# 自定义一个数据集类
+# 自定义一个数据集类1
 class TextDataset(Dataset):
     def __init__(self, texts):
         self.encodings = tokenizer(texts, truncation=True, padding=True, max_length=128, return_tensors="pt") #对输入的文本进行分词和编码，长文本截断，短文本填充
@@ -80,7 +80,7 @@ def main():
     predictions = predict(text_loader)
 
     # 将数值标签映射为文本标签
-    label_map = {0: '负面', 1: '中性', 2: '正面'}
+    label_map = {0: '负面', 1: '正面'}
     text_labels = [label_map[pred] for pred in predictions]
 
     # 将预测结果添加到DataFrame

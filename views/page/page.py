@@ -32,12 +32,10 @@ page_app = Blueprint('page', __name__, url_prefix='/page', template_folder='temp
 def yuqingChar():
     username = session.get('username')
     negative_articleList = getAllNegativeArticle()
-    neutral_articleList = getAllNeutralArticle()
     positive_articleList = getAllPositiveArticle()
     return render_template('yuqingChar.html',
                            username=username,
                            negative_articleList=negative_articleList,
-                           neutral_articleList=neutral_articleList,
                            positive_articleList=positive_articleList
                            )
 

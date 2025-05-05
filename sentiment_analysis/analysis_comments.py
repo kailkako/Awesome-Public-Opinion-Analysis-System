@@ -29,7 +29,7 @@ model_directory = 'google-bert/bert-base-chinese'
 
 # 加载分词器和模型
 tokenizer = BertTokenizer.from_pretrained(model_directory)
-model = BertForSequenceClassification.from_pretrained(model_directory, num_labels=3)
+model = BertForSequenceClassification.from_pretrained(model_directory, ignore_mismatched_sizes=True, num_labels=2)
 model.eval()  # 将模型设置为评估模式，在评估模式下，模型会关闭一些在训练时使用的特殊层（如 Dropout），以确保预测结果的稳定性。
 
 # 检查是否有可用的GPU
@@ -78,7 +78,7 @@ def main(articleCommentsFilePath):
     predictions = predict(text_loader)
 
     # 将数值标签映射为文本标签
-    label_map = {0: '消极', 1: '中性', 2: '积极'}
+    label_map = {0: '消极', 1: '积极'}
     text_labels = [label_map[pred] for pred in predictions]
 
     # 将预测结果添加到DataFrame

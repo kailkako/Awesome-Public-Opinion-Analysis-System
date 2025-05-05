@@ -44,6 +44,7 @@ def getWeiboAI(topicName):
     emotion = data['stars']['desc']
     word_cloud = data['word_cloud']['desc']
     typical_viewpoint = data['typical_viewpoint']['desc']
+    typical_viewpoint = typical_viewpoint.replace("**", "")  # 去掉Markdown格式
     typical_viewpoint_list = typical_viewpoint.split('\n')
     return description_list, emotion, word_cloud, typical_viewpoint_list
 

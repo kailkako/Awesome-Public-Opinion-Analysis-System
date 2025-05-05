@@ -59,7 +59,15 @@ def register():
 
         return redirect('/user/login')
 
+@ub.route('/retrieve_pwd', methods=['GET','POST'])
+def retrieve_pwd():
+    if request.method == 'GET':
+        return render_template('retrieve_pwd.html')
+    else:
+        pass
+
 @ub.route('/logOut')
 def logOut():
         session.clear()
         return redirect('/user/login')
+

@@ -42,7 +42,7 @@ def login():
 def before_reuqest():
     pat = re.compile(r'^/static')
     if re.search(pat,request.path):return
-    elif request.path == '/user/login' or request.path == '/user/register':return
+    elif request.path == '/user/login' or request.path == '/user/register' or request.path == '/user/retrieve_pwd':return
     elif session.get('username'):return
     return redirect('/user/login')
 

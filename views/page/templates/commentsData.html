@@ -153,8 +153,6 @@
     </nav>
 {% endblock %}
 
-
-
 {% block content %}
     <div class="container-fluid">
         <div class="row">
@@ -177,25 +175,25 @@
                                            aria-describedby="datatable-1_info">
                                         <thead>
                                         <tr>
-                                            <th style="font-weight: bold">
+                                            <th style="font-weight: bold" class="text-center">
                                                 文章ID
                                             </th>
-                                            <th style="font-weight: bold">
+                                            <th style="font-weight: bold" class="text-center">
                                                 点赞量
                                             </th>
-                                            <th style="font-weight: bold">
-                                                评论人
+                                            <th style="font-weight: bold" class="text-center">
+                                                评论用户
                                             </th>
-                                            <th style="font-weight: bold">
+                                            <th style="font-weight: bold" class="text-center">
                                                 内容
                                             </th>
-                                            <th style="font-weight: bold">
+                                            <th style="font-weight: bold" class="text-center">
                                                 评论时间
                                             </th>
-                                            <th style="font-weight: bold">
+                                            <th style="font-weight: bold" class="text-center">
                                                 情感
                                             </th>
-                                            <th style="font-weight: bold">
+                                            <th style="font-weight: bold" class="text-center">
                                                 详情
                                             </th>
                                         </tr>
@@ -207,22 +205,22 @@
                                                     {{ comment[0] }}
                                                 </td>
                                                 {#点赞量#}
-                                                <td style="width:10%">{{ comment[2] }}</td>
-                                                {#评论人#}
-                                                <td style="width:10%">{{ comment[5] }}</td>
+                                                <td style="width:10%" class="text-center">{{ comment[2] }}</td>
+                                                {#评论用户#}
+                                                <td style="width:10%" class="text-center">{{ comment[5] }}</td>
                                                 {#内容#}
-                                                <td style="width:42%" class="text-left">{{ comment[4] }}</td>
+                                                <td style="width:42%" class="text-center">{{ comment[4] }}</td>
                                                 {#评论时间#}
-                                                <td style="width:8%" class="text-right">{{ comment[1] }}</td>
+                                                <td style="width:12%" class="text-center">{{ comment[1] }}</td>
                                                 {#情感分析#}
                                                 {% if comment[8] =='消极' %}
-                                                    <td style="width:8%;color: red">{{ comment[8] }}</td>
+                                                    <td style="width:8%; color: red" class="text-center">{{ comment[8] }}</td>
                                                 {% elif comment[8] =='积极' %}
-                                                    <td style="width:8%;color: green">{{ comment[8] }}</td>
+                                                    <td style="width:8%;color: green" class="text-center">{{ comment[8] }}</td>
                                                 {% endif %}
                                                 {#分析#}
-                                                <td style="width:8%"><a
-                                                        href="/page/articleChar?articleId={{ comment[0] }}"
+                                                <td style="width:8%" class="text-center">
+                                                    <a href="/page/articleChar?articleId={{ comment[0] }}"
                                                         class="btn btn-primary btn-sm">文章详情</a></td>
                                             </tr>
                                         {% endfor %}
@@ -235,12 +233,7 @@
                 </div>
             </div>
         </div>
-
     </div>
 {% endblock %}
-
-
-
 {% block echarts %}
-
 {% endblock %}

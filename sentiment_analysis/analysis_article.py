@@ -23,8 +23,8 @@ from transformers import BertTokenizer, BertForSequenceClassification
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm  # 导入tqdm
 
-# 模型和分词器所在的文件夹路径
-model_directory = 'google-bert/bert-base-chinese'
+ # 通过train.py，模型微调后会保存到./BERT_Finetune，调用即可
+model_directory = 'C:\\Users\\63156\\.cache\\huggingface\\hub\\BERT_Finetune\\' # 这里我是挪到了本地进行调用
 
 # 读取数据
 csv_file = '../spiders/articleData.csv'

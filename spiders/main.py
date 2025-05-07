@@ -92,19 +92,16 @@ def emotion_ratio(articleDataFilePath, articleCommentsFilePath):
 
     # 计算情绪的占比
     positive_ratio = (sentiment_counts.get('积极', 0) / total_counts * 100).round(2)
-    neutral_ratio = (sentiment_counts.get('中性', 0) / total_counts * 100).round(2)
     negative_ratio = (sentiment_counts.get('消极', 0) / total_counts * 100).round(2)
 
     # 将情绪占比添加到 sentiment_counts DataFrame 中
     sentiment_counts['negative_ratio'] = negative_ratio
-    sentiment_counts['neutral_ratio'] = neutral_ratio
     sentiment_counts['positive_ratio'] = positive_ratio
 
     # 确定每个articleId的主情绪类别
-    sentiment_counts['emotion'] = sentiment_counts[['negative_ratio', 'neutral_ratio', 'positive_ratio']].idxmax(axis=1)
+    sentiment_counts['emotion'] = sentiment_counts[['negative_ratio', 'positive_ratio']].idxmax(axis=1)
     sentiment_counts['emotion'] = sentiment_counts['emotion'].map({
         'negative_ratio': '消极',
-        'neutral_ratio': '中性',
         'positive_ratio': '积极'
     })
 
@@ -112,11 +109,11 @@ def emotion_ratio(articleDataFilePath, articleCommentsFilePath):
     article_df = pd.read_csv(articleDataFilePath)
 
     # 将 sentiment_counts 中的情绪占比数据和主情绪类别合并到 article_df 中
-    article_df = article_df.merge(sentiment_counts[['negative_ratio', 'neutral_ratio', 'positive_ratio', 'emotion']],
+    article_df = article_df.merge(sentiment_counts[['negative_ratio', 'positive_ratio', 'emotion']],
                                   left_on='id', right_index=True, how='left')
 
     # 如果某些文章没有对应的情绪数据，将占比填充为0，并设置emotion为'未知'
-    article_df[['negative_ratio', 'neutral_ratio', 'positive_ratio']] = article_df[['negative_ratio', 'neutral_ratio', 'positive_ratio']].fillna(0)
+    article_df[['negative_ratio', 'positive_ratio']] = article_df[['negative_ratio', 'positive_ratio']].fillna(0)
     article_df['emotion'] = article_df['emotion'].fillna('未知')
 
     # 将更新后的数据保存到新的 CSV 文件

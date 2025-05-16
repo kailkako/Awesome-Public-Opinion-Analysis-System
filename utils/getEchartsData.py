@@ -57,7 +57,7 @@ def getIPCharByCommentsRegion(commentsList):
 
 def getCommentSentimentData(commentsList):
     # 统计评论情感
-    sentiment_counts = {'消极': 0, '中性': 0, '积极': 0}
+    sentiment_counts = {'消极': 0, '积极': 1}
     for item in commentsList:
         sentiment = item[-1]
         sentiment_counts[sentiment] += 1

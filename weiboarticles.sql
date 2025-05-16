@@ -34,7 +34,6 @@ CREATE TABLE `article`  (
   `authorName` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `authorDetail` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `negative_ratio` float NULL DEFAULT NULL,
-  `neutral_ratio` float NULL DEFAULT NULL,
   `positive_ratio` float NULL DEFAULT NULL,
   `emotion` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
@@ -56,7 +55,6 @@ CREATE TABLE `article_temp`  (
   `authorName` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `authorDetail` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `negative_ratio` float NULL DEFAULT NULL,
-  `neutral_ratio` float NULL DEFAULT NULL,
   `positive_ratio` float NULL DEFAULT NULL,
   `emotion` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;

@@ -206,12 +206,12 @@
                                                 </td>
                                                 {#点赞量#}
                                                 <td style="width:10%" class="text-center">{{ comment[2] }}</td>
-                                                {#评论人#}
+                                                {#评论用户#}
                                                 <td style="width:10%" class="text-center">{{ comment[5] }}</td>
                                                 {#内容#}
                                                 <td style="width:42%" class="text-center">{{ comment[4] }}</td>
                                                 {#评论时间#}
-                                                <td style="width:8%" class="text-center">{{ comment[1] }}</td>
+                                                <td style="width:12%" class="text-center">{{ comment[1] }}</td>
                                                 {#情感分析#}
                                                 {% if comment[8] =='消极' %}
                                                     <td style="width:8%; color: red" class="text-center">{{ comment[8] }}</td>
@@ -235,6 +235,5 @@
         </div>
     </div>
 {% endblock %}
-
 {% block echarts %}
 {% endblock %}

@@ -8,6 +8,7 @@ from transformers import BertTokenizer, BertForSequenceClassification
 from sklearn.metrics import precision_score, recall_score, f1_score
 from sklearn.model_selection import train_test_split
 import logging
+from torch.utils.data import Dataset, DataLoader
 from datasets import load_dataset
 
 # 日志配置
@@ -61,7 +62,7 @@ class ChineseTextDataset(Dataset):
             'labels': torch.tensor(label, dtype=torch.long)
         }
 
-# 加载数据集
+# 数据准备与加载
 ds = load_dataset("dirtycomputer/weibo_senti_100k")
 try:
     df = pd.DataFrame(ds['train'])

@@ -67,9 +67,12 @@ location_stats = location_stats.dropna(subset=['coords'])
 m = folium.Map(location=[35.8617, 104.1954], zoom_start=5)
 
 # 添加热力图层
-for metric in ['forward_num', 'comment_num', 'like_num']:
+heat_maps = []
+for metric, name in zip(['forward_num', 'comment_num', 'like_num'], ['转发量', '评论量', '点赞量']):
     heat_data = [[row['coords'][0], row['coords'][1], row[metric]] for index, row in location_stats.iterrows()]
-    HeatMap(heat_data, name=metric).add_to(m)
+    heat_map = HeatMap(heat_data, name=name)
+    heat_maps.append(heat_map)
+    heat_map.add_to(m)
 
 # 添加图层控制器
 folium.LayerControl().add_to(m)

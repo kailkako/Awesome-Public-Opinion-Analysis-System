@@ -10904,13 +10904,14 @@ a.text-dark:focus, a.text-dark:hover {
     }
 }
 
+/* 改侧边栏背景 */
 .iq-sidebar {
     position: fixed;
     z-index: 1000;
     top: 0;
-    width: 260px;
+    width: 270px;
     height: 100%;
-    background: #0c2556;
+    background: #007d65;
     transition: all .6s ease-in-out;
     -ms-box-shadow: 0 0 30px rgba(12, 37, 86, .05);
     -o-box-shadow: 0 0 30px rgba(12, 37, 86, .05);
@@ -10925,8 +10926,9 @@ a.text-dark:focus, a.text-dark:hover {
     height: 100px
 }
 
+/* 改侧边栏图标颜色 */
 .iq-sidebar-menu {
-    color: #8f9fbc;
+    color: #ffffff;
     position: relative
 }
 
@@ -10969,11 +10971,12 @@ a.text-dark:focus, a.text-dark:hover {
     font-size: 14px
 }
 
+/* 侧边栏文字颜色 */
 .iq-sidebar-menu .side-menu li a {
     font-size: 14px;
     white-space: nowrap;
     display: block;
-    color: #8f9fbc;
+    color: #ffffff;  
     position: relative;
     padding: .625rem .938rem;
     line-height: 18px;
@@ -10992,7 +10995,8 @@ a.text-dark:focus, a.text-dark:hover {
     display: inline-block;
     margin-right: 8px;
     font-size: 16px;
-    font-style: normal
+    font-style: normal;
+    color: #ffffff; 
 }
 
 .iq-sidebar-menu .side-menu li a span {
@@ -11046,7 +11050,7 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .sidebar-default .iq-sidebar-menu svg {
-    stroke: #8f9fbc
+    stroke: #ffffff
 }
 
 .sidebar-default .iq-sidebar-menu .side-menu > li.active > .svg-icon > i > svg, .sidebar-default .iq-sidebar-menu .side-menu > li:hover > .svg-icon > i > svg {

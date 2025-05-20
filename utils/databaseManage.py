@@ -141,24 +141,6 @@ def getAllNegativeArticle():
         return []
     return articleList
 
-# 查询article表中 中立情绪占比排名前10的文章数据
-def getAllNeutralArticle():
-    check_connection()
-    try:
-        sql = "SELECT * FROM article ORDER BY neutral_ratio DESC LIMIT 10"
-        cursor.execute(sql)
-        articleList = cursor.fetchall()
-        conn.commit()
-    except pymysql.MySQLError as e:
-        print(f"数据库错误: {e}")
-        conn.rollback()
-        return []
-    except Exception as e:
-        print(f"其他错误: {e}")
-        conn.rollback()
-        return []
-    return articleList
-
 # 查询article表中正面情绪占比排名前10的文章数据
 def getAllPositiveArticle():
     check_connection()
@@ -221,8 +203,8 @@ def save_to_sql(articleDataFilePath, articleCommentsFilePath):
         articles_data = [tuple(row) for row in articlePd.values]
         article_sql = """
             INSERT INTO article (id,likeNum,commentsLen,reposts_count,region,content,created_at,type,detailUrl,authorName,authorDetail,
-            negative_ratio,neutral_ratio,positive_ratio,emotion)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            negative_ratio,positive_ratio,emotion)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
         cursor.executemany(article_sql, articles_data)
 
@@ -269,8 +251,8 @@ def save_to_sql_temp(articleDataFilePath, articleCommentsFilePath):
         articles_data = [tuple(row) for row in articlePd.values]
         article_sql = """
             INSERT INTO article_temp (id,likeNum,commentsLen,reposts_count,region,content,created_at,type,detailUrl,authorName,authorDetail,
-            negative_ratio,neutral_ratio,positive_ratio,emotion)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            negative_ratio,positive_ratio,emotion)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
         cursor.executemany(article_sql, articles_data)
 
@@ -309,8 +291,8 @@ def save_to_article(articleDataFilePath, articleCommentsFilePath, articleId):
         articles_data = [tuple(row) for row in articlePd.values]
         article_sql = """
             INSERT INTO article (id,likeNum,commentsLen,reposts_count,region,content,created_at,type,detailUrl,authorName,authorDetail,
-            negative_ratio,neutral_ratio,positive_ratio,emotion)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            negative_ratio,positive_ratio,emotion)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
         cursor.executemany(article_sql, articles_data)
 
@@ -347,4 +329,3 @@ def getCommentsData(id):
 def getAllCommentsData():
     allCommentList = query('select * from comments',[],'select')
     return allCommentList
-

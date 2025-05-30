@@ -329,3 +329,4 @@ def getCommentsData(id):
 def getAllCommentsData():
     allCommentList = query('select * from comments',[],'select')
     return allCommentList
+

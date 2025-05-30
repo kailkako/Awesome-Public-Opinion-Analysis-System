@@ -27,7 +27,6 @@ from utils.topicAnalysis import *
 
 page_app = Blueprint('page', __name__, url_prefix='/page', template_folder='templates')
 
-
 @page_app.route('/yuqingChar')
 def yuqingChar():
     username = session.get('username')
@@ -272,6 +271,7 @@ def articleChar():
     commentRegionData = getIPCharByCommentsRegion(commentsList)
     sentimentData = getCommentSentimentData(commentsList)
     time_dates, time_counts = getTimeData(commentsList)
+    print(article)
     return render_template('articleChar.html',
                            username=username,
                            articleIDList=articleIDList,

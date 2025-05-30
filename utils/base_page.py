@@ -91,7 +91,7 @@ def getEmotion():
     emotionDic = {}
     articleList = getAllArticleData()
     for article in articleList:
-        emotion = article[14]
+        emotion = article[13]
         if emotion not in emotionDic:
             emotionDic[emotion] = 1
         else:

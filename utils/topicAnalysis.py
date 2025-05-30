@@ -27,11 +27,11 @@ from globalVariable import headers
 # 从微博热门搜索接口获取热门话题列表，并返回前20个话题
 def getCiTiaoList():
     '''实现：使用 requests 库发送 GET 请求，解析返回的 JSON 数据，提取话题名称。'''
-    response = requests.get('https://weibo.com/ajax/side/hotSearch', headers=headers)
-    text = response.json()
-    realtime_list = text['data']['realtime']
-    word_scheme_list = [entry['word_scheme'].strip('#') for entry in realtime_list if 'word_scheme' in entry]
-    return word_scheme_list[:20]
+    response = requests.get('https://weibo.com/ajax/side/hotSearch', headers=headers)  # 开发者工具监控网络可以找到入口，headers用于反爬虫（设置了cookie和user-agent）
+    text = response.json()  # 解析json
+    realtime_list = text['data']['realtime'] # 提取data里的realtime字段
+    word_scheme_list = [entry['word_scheme'].strip('#') for entry in realtime_list if 'word_scheme' in entry] # 提取word_scheme字段(就是#+热搜话题名字)，并去掉#
+    return word_scheme_list[:20]  # 返回前20个话题名
 
 # 对指定话题进行分析，获取话题的相关信息，如概述、情感占比、词云数据和典型观点
 def getWeiboAI(topicName):

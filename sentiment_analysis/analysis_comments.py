@@ -25,7 +25,7 @@ from transformers import BertTokenizer, BertForSequenceClassification
 from torch.utils.data import DataLoader, Dataset
 
  # 通过train.py，模型微调后会保存到./BERT_Finetune，调用即可
-model_directory = 'C:\\Users\\63156\\.cache\\huggingface\\hub\\BERT_Finetune\\'  # 这里我是挪到了本地进行调用
+model_directory = 'C:\\Users\\63156\\.cache\\huggingface\\hub\\BERT_Finetune\\' 
 
 # 加载分词器和模型
 tokenizer = BertTokenizer.from_pretrained(model_directory)

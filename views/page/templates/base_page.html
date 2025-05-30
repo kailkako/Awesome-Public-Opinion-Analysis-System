@@ -1,105 +1,580 @@
-# Copyright 2025 kailkako/Awesome-Public-Opinion-Analysis-System
-# Author：Licheng Yu
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}首页{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/backend-plugin.min.css">
+    <link rel="stylesheet" href="/static/css/backend.css">
+    <meta name="referrer" content="no-referrer"/>
+</head>
+<body class="  ">
 
-# ==================================================================
-# base_page.py
-# Description: 采集主页页面需要的数据
-# ==================================================================
+<!-- loader Start -->
+<div id="loading">
+    <div id="loading-center">
+    </div>
+</div>
+<!-- loader END -->
 
-from utils.databaseManage import *
-from datetime import datetime
+<!-- Wrapper Start -->
+<div class="wrapper">
+    <div class="iq-sidebar  sidebar-default  ">
+        <div class="iq-sidebar-logo d-flex align-items-end justify-content-between">
+            <a href="" class="header-logo">
+                <img src="https://weibo.com/favicon.ico" class="img-fluid rounded-normal light-logo" alt="logo">
+                <span>微博舆情分析系统</span>
+            </a>
+            <div class="side-menu-bt-sidebar-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="text-light wrapper-menu" width="30" fill="none"
+                     viewbox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </div>
+        </div>
+        <div class="data-scrollbar" data-scroll="1">
+            {% block nav %}
+                <nav class="iq-sidebar-menu">
+                    <ul id="iq-sidebar-toggle" class="side-menu">
+                        <li class="px-3 pt-3 pb-2 ">
+                            <span class="text-uppercase small font-weight-bold">首页</span>
+                        </li>
+                        <li class="active sidebar-layout">
+                            <a href="/page/home" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">首页</span>
+                            </a>
+                        </li>
+                        <li class="px-3 pt-3 pb-2 ">
+                            <span class="text-uppercase small font-weight-bold">数据概览</span>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/articleData" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">微博文章</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/commentsData" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M17,16V3L13,5,10,3,7,5,3,3V17.83A3.13,3.13,0,0,0,5.84,21,3,3,0,0,0,9,18V17a1,1,0,0,1,1-1H20a1,1,0,0,1,1,1v1a3,3,0,0,1-3,3H6"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">微博评论</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/topic" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">微博热门话题</span>
+                            </a>
+                        </li>
+                        <li class="px-3 pt-3 pb-2 ">
+                            <span class="text-uppercase small font-weight-bold">数据分析</span>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/articleChar" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">文章分析</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/yuqingChar" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">舆情分析</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/analysisTopic" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">热门话题分析</span>
+                            </a>
+                        </li>
+                        <li class="px-3 pt-3 pb-2">
+                            <span class="text-uppercase small font-weight-bold">数据爬取</span>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/spiderData" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                    </svg>
+                                </i><span class="ml-2">爬取数据</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/articleData_temp" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                    </svg>
+                                </i><span class="ml-2">爬取结果</span>
+                            </a>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/updateData" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                                    </svg>
+                                </i><span class="ml-2">文章数据更新</span>
+                            </a>
+                        </li>
+                        <li class="px-3 pt-3 pb-2">
+                            <span class="text-uppercase small font-weight-bold">数据管理</span>
+                        </li>
+                        <li class=" sidebar-layout">
+                            <a href="/page/deleteData" class="svg-icon">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                                    </svg>
+                                </i><span class="ml-2">数据删除</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            {% endblock %}
+            <div class="pt-5 pb-5"></div>
+        </div>
+    </div>
+    <div class="iq-top-navbar">
+        <div class="iq-navbar-custom">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <div class="side-menu-bt-sidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="text-secondary wrapper-menu" width="30" fill="none"
+                         viewbox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="change-mode">
+                        <div class="custom-control custom-switch custom-switch-icon custom-control-inline">
+                            <div class="custom-switch-inner">
+                                <p class="mb-0"></p>
+                                <input type="checkbox" class="custom-control-input" id="dark-mode" data-active="true">
+                                <label class="custom-control-label" for="dark-mode" data-mode="toggle">
+                                      <span class="switch-icon-right">
+                                          <svg xmlns="http://www.w3.org/2000/svg" id="h-moon" height="20" width="20"
+                                               class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+                                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                                          </svg>
+                                      </span>
+                                    <span class="switch-icon-left">
+                                          <svg xmlns="http://www.w3.org/2000/svg" id="h-sun" height="20" width="20"
+                                               class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+                                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                          </svg>
+                                      </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-label="Toggle navigation">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-secondary" width="30" fill="none"
+                             viewbox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto navbar-list align-items-center">
+                            <li class="nav-item nav-icon dropdown">
+                                <a href="#" class="nav-item nav-icon dropdown-toggle pr-0 search-toggle"
+                                   id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="mb-0 ml-2 user-name">{{ username }}</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    <li class="dropdown-item  d-flex svg-icon ">
+                                        <a href="/user/logOut">退出登录</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
 
-allCommentsList = getAllCommentsData()
-# articleList = getAllArticleData()
+    <div class="content-page">
+        {% block content %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 mb-4 mt-1">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center">
+                            <h4 class="font-weight-bold">首页</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="">
+                                                <p class="mb-2 text-secondary">文章个数</p>
+                                                <div class="d-flex flex-wrap justify-content-start align-items-center">
+                                                    <h5 class="mb-0 font-weight-bold">{{ articleLenMax }}个</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="">
+                                                <p class="mb-2 text-secondary">最高点赞微博-作者</p>
+                                                <div class="d-flex flex-wrap justify-content-start align-items-center">
+                                                    <h5 class="mb-0 font-weight-bold">{{ likeCountMaxAuthorName }}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="">
+                                                <p class="mb-2 text-secondary">最多城市</p>
+                                                <div class="d-flex flex-wrap justify-content-start align-items-center">
+                                                    <h5 class="mb-0 font-weight-bold">{{ cityMax }}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                            <h4 class="font-weight-bold">文章发布时间个数</h4>
+                                        </div>
+                                        <div id="main" style="width:100%;height: 350px" class="custom-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-8">
+                        <div class="card card-block card-stretch card-height">
+                            <div class="card-header card-header-border d-flex justify-content-between">
+                                <div class="header-title">
+                                    <h4 class="card-title">评论点赞量 Top </h4>
+                                </div>
+                            </div>
+                            <div class="card-body-list">
+                                <ul class="list-style-3 mb-0">
+                                    {% for i in commentsLikeCountTopFore %}
+                                        <li class="p-3 list-item d-flex justify-content-start align-items-center">
+                                            <div class="avatar">
+                                                <p>
+                                                    🧑‍ {{ i[5] }}
+                                                </p>
+                                                <p class="mb-0"
+                                                   style="color:#ccc;width:320px;overflow: hidden;text-overflow: ellipsis;white-space:nowrap">
+                                                    {{ i[4] }}
+                                                </p>
+                                            </div>
+                                            <div class="list-style-action d-flex justify-content-end ml-auto">
+                                                <h6 class="font-weight-bold text-danger">👍 {{ i[2] }}</h6>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                    <div class="d-flex justify-content-end align-items-center border-top-table p-3">
+                                        <a href="/page/commentsData" class="btn btn-secondary btn-sm">查看全部</a>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
 
-def getHomeTagsData():
-    # 获取存储文章内容的列表
-    articleList = getAllArticleData()
-    
-    # 文章个数
-    articleLenMax = len(articleList)
+                    </div>
+                    <div class="col-lg-6 col-md-8">
+                        <div class="card card-block card-stretch card-height">
+                            <div class="card-header d-flex justify-content-between">
+                                <div class="header-title">
+                                    <h4 class="card-title">文章类型占比</h4>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div id="mainTwo" style="width:100%;height:350px">
 
-    # 最高点赞微博数&作者名
-    likeCountMax = 0
-    likeCountMaxAuthorName = ''
-    # 最多城市
-    cityDic = {}
-    for article in articleList:
-        # 取对应字段比较点赞数，后面有更高的就更新，然后取对应的作者名
-        if likeCountMax < int(article[1]):
-            likeCountMax = int(article[1])
-            likeCountMaxAuthorName = article[9]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-8">
+                        <div class="card card-block card-stretch card-height">
+                            <div class="card-header d-flex justify-content-between">
+                                <div class="header-title">
+                                    <h4 class="card-title">文章情绪类别占比</h4>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div id="mainThree" style="width:100%;height:350px">
 
-        if article[4] != '无':
-            if cityDic.get(article[4], -1) == -1: # 尝试获取当前城市在 cityDic 中的值。如果该城市不在字典中，get方法会返回 -1。如果返回值为 -1，说明该城市是第一次出现，将其添加到 cityDic 中，并将其值初始化为 1。
-                cityDic[article[4]] = 1
-            else:
-                cityDic[article[4]] += 1 # 如果返回值不为 -1，说明该城市已经在字典中，将其对应的值加 1。
-    cityDicSorted = list(sorted(cityDic.items(), key=lambda x: x[1], reverse=True))
-    if articleLenMax==0:
-        return 0, '', '',[]
-    else:
-        return articleLenMax, likeCountMaxAuthorName, cityDicSorted[0][0], articleList
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+</div>
+<!-- Wrapper End-->
 
-# 获取评论中点赞最高的前四个
-def getHomeCommentsLikeCountTopFore():
-    return list(sorted(getAllCommentsData(), key=lambda x: int(x[2]), reverse=True))[:4]
+<footer class="iq-footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-6 text-right">
+                <span class="mr-1">Copyright &copy; 2025 微博舆情分析系统</a></span>
+            </div>
+        </div>
+    </div>
+</footer>
 
-# 统计文章的发布日期，返回可绘制时间序列图表的数据
-def getHomeArticleCreatedAtChart(articleList):
-    if len(articleList)==0 :
-        return None,None
-    xData = list(set([x[6] for x in articleList]))  # 从articleList里提取每篇文章的发布日期（索引为6）；利用set去除重复的日期
-    xData = list(sorted(xData, key=lambda x: datetime.strptime(x, '%Y-%m-%d').timestamp(), reverse=True))  # 降序排列（最新的日期排在前面）
-    yData = [0 for x in range(len(xData))]   # 构建一个长度xData相同的列表yData，记录每个日期对应的文章数量
-    for article in articleList:
-        for index, created_date in enumerate(xData): # 枚举，如果发布时间跟x一样，就+1
-            if article[6] == created_date:
-                yData[index] += 1
-    return xData, yData  # 返回 xData（日期列表）和 yData（每个日期对应的文章数量列表）。
+<script src="/static/echarts.min.js"></script>
+<script src="/static/china.js"></script>
+{% block echarts %}
+    <script>
+        var chartDom = document.getElementById('main');
+        var myCharts = echarts.init(chartDom);
+        var option;
+        var xData = {{ xData | tojson }};
+        var yData = {{ yData }};
+        var xRes = []
+        var yRes = []
+        for (var i = 0; i < 8; i++) {
+            xRes.push(xData[i])
+            yRes.push(yData[i])
+        }
+        option = {
+            tooltip: {
+                trigger: "axis"
+            },
+            legend: {},
+            toolbox: {
+                show: true,
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    dataView: {readOnly: false},
+                    magicType: {type: ['line', 'bar']},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: xRes
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: "日期个数",
+                    data: yRes,
+                    type: 'line',
+                    areaStyle: {
+                        color: "rgba(0,128,255,0.2)"
+                    },
+                    smooth: true,
+                    lineStyle: {
+                        width: 5
+                    },
+                    emphasis: {
+                        focus: 'series'
+                    }
+                }
+            ]
+        };
+        let count = 8;
+        setInterval(() => {
+            if (count >= xData.length) count = 0
+            xRes.shift()
+            xRes.push(xData[count])
+            yRes.shift()
+            yRes.push(yData[count])
+            count++
+            myCharts.setOption({
+                xAxis: [{
+                    data: xRes
+                }],
+                series: [{
+                    data: yRes
+                }]
+            })
+        }, 2000)
+        option && myCharts.setOption(option);
+    </script>
 
-# 统计文章列表中不同类型文章的数量，返回可用于绘制饼图或者柱状图的数据
-def getHomeTypeChart(articleList):
-    typeDic = {}
-    for article in articleList:
-        if typeDic.get(article[7], -1) == -1:
-            typeDic[article[7]] = 1
-        else:
-            typeDic[article[7]] += 1
-    resultData = []
-    for key, value in typeDic.items():
-        resultData.append({
-            'name': key,
-            'value': value
-        })
-    return resultData  # 返回文章类型及其对应数量的字典列表
+<!-- 各微博类型占比饼状图 -->
+    <script>
+        var chartDom = document.getElementById('mainTwo');
+        var myChart = echarts.init(chartDom);
+        var option;
 
-# 文章情绪类别占比
-def getEmotion():
-    emotionDic = {}
-    articleList = getAllArticleData()
-    for article in articleList:
-        emotion = article[13]
-        if emotion not in emotionDic:
-            emotionDic[emotion] = 1
-        else:
-            emotionDic[emotion] += 1
-    resultData = []
-    for key, value in emotionDic.items():
-        resultData.append({
-            'name': key,
-            'value': value
-        })
-    return resultData  # 返回情绪类别及其对应数量的字典列表
+        option = {
+            title: {
+                text: '各微博类型占比饼状图',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                padding: [10, 20, 30, 20],
+                itemWidth: 20,               // 图例宽度
+                itemHeight: 15,              // 图例高度
+                textStyle: {fontSize: 12}    // 图例文字大小
+            },
+            series: [
+            {
+                name: '博客类型占比',
+                type: 'pie',
+                radius: '70%',
+                data: {{ typeChart |tojson }},
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+                label: {show: false},       // 图例文字
+                labelLine: {show: false}    // 图例线条
+            }
+        ]
+    };
+        option && myChart.setOption(option);
+    </script>
+
+<!-- 文章情绪个数统计图 -->
+    <script>
+        var chartDom = document.getElementById('mainThree');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                //orient: 'vertical',  默认为水平
+                left: 20,
+                type: 'scroll',
+            },
+            series: [
+                {
+                    name: '文章情绪个数',
+                    type: 'pie',
+                    radius: ['70%', '50%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: 20,
+                            fontWeight: 'bold'
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: {{ emotionData | tojson }}
+                }
+            ]
+        };
+        option && myChart.setOption(option);
+    </script>
+
+{% endblock %}
+<script src="/static/js/backend-bundle.min.js"></script>
+<script src="/static/js/customizer.js"></script>
+<script src="/static/js/sidebar.js"></script>
+<script src="/static/js/flex-tree.min.js"></script>
+<script src="/static/js/tree.js"></script>
+<script src="/static/js/table-treeview.js"></script>
+<script src="/static/js/sweetalert.js"></script>
+<script src="/static/js/vector-map-custom.js"></script>
+<script src="/static/js/chart-custom.js"></script>
+<script src="/static/js/01.js"></script>
+<script src="/static/js/02.js"></script>
+<script src="/static/js/slider.js"></script>
+<script src="/static/js/index.js" type="module"></script>
+<script src="/static/js/app.js">
+
+</script>
+</body>
+</html>

@@ -7,6 +7,8 @@ from transformers import BertTokenizer, BertForSequenceClassification
 from sklearn.metrics import precision_score, recall_score, f1_score
 from sklearn.model_selection import train_test_split
 import logging
+from torch.utils.data import Dataset, DataLoader
+from datasets import load_dataset
 
 # 日志配置
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -14,19 +16,18 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # 配置类
 class Config:
     MAX_LEN = 128
-    BATCH_SIZE = 20
-    LEARNING_RATE = 2e-5
-    EPOCHS = 5
+    BATCH_SIZE = 16
+    LEARNING_RATE = 1e-5
+    EPOCHS = 3
     MODEL_PATH = 'google-bert/bert-base-chinese'
-    DATA_FILE = './data.csv'
-    SAVE_PATH = './BERT'
+    SAVE_PATH = './BERT_Finetune'
 
 if not os.path.exists(Config.SAVE_PATH):
     os.makedirs(Config.SAVE_PATH)
 
 # 初始化和模型加载
 tokenizer = BertTokenizer.from_pretrained(Config.MODEL_PATH)
-model = BertForSequenceClassification.from_pretrained(Config.MODEL_PATH, num_labels=3)
+model = BertForSequenceClassification.from_pretrained(Config.MODEL_PATH, num_labels=2)
 model.to('cuda')
 
 # 自定义数据集类
@@ -60,21 +61,22 @@ class ChineseTextDataset(Dataset):
         }
 
 # 数据准备与加载
+ds = load_dataset("dirtycomputer/weibo_senti_100k")
 try:
-    df = pd.read_csv(Config.DATA_FILE, encoding='utf-8')
+    df = pd.DataFrame(ds['train'])
     df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
 except Exception as e:
     logging.error(f"Error reading the data file: {e}")
     raise e
 
 train_dataset = ChineseTextDataset(
-    df_train['text'].tolist(),
+    df_train['review'].tolist(),
     df_train['label'].tolist(),
     tokenizer,
     Config.MAX_LEN
 )
 test_dataset = ChineseTextDataset(
-    df_test['text'].tolist(),
+    df_test['review'].tolist(),
     df_test['label'].tolist(),
     tokenizer,
     Config.MAX_LEN
@@ -129,10 +131,9 @@ for epoch in range(Config.EPOCHS):
     accuracy, train_loss, precision, recall, f1 = train_epoch(model, train_loader, optimizer, device, epoch)
     logging.info(
         f'Epoch {epoch + 1}, Loss: {train_loss:.4f}, Accuracy: {accuracy:.4f}, '
-        f'Precision: {precision:.4f}, Recall: {recall:.4f}, F1 Score: {f1:.4f}'
+        f'Precision: {precision:.4f}, Recall: {recall:.4f}, F1-Score: {f1:.4f}'
     )
 
 model_directory = Config.SAVE_PATH
 model.save_pretrained(model_directory)
 tokenizer.save_pretrained(model_directory)
-torch.save(model.state_dict(), model_directory + r'\pytorch_model.bin')

@@ -17,18 +17,15 @@
 # Description: 实现对文章内容的情感分析
 # ==================================================================
 
-import pandas as pd
 import torch
+import pandas as pd
+from tqdm import tqdm 
+from globalVariable import *
 from transformers import BertTokenizer, BertForSequenceClassification
 from torch.utils.data import DataLoader, Dataset
-from tqdm import tqdm  # 导入tqdm
 
  # 通过train.py，模型微调后会保存到./BERT_Finetune，调用即可
-model_directory = 'C:\\Users\\63156\\.cache\\huggingface\\hub\\BERT_Finetune\\' # 这里我是挪到了本地路径进行调用
-
-# 读取数据
-csv_file = '../spiders/articleData.csv'
-df = pd.read_csv(csv_file)
+model_directory = 'C:\\Users\\63156\\.cache\\huggingface\\hub\\BERT_Finetune\\' 
 
 # 加载分词器和模型
 tokenizer = BertTokenizer.from_pretrained(model_directory)
@@ -39,55 +36,57 @@ model.eval()  # 将模型设置为评估模式，在评估模式下，模型会�
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
-# 自定义一个数据集类1
+
 class TextDataset(Dataset):
     def __init__(self, texts):
-        self.encodings = tokenizer(texts, truncation=True, padding=True, max_length=128, return_tensors="pt") #对输入的文本进行分词和编码，长文本截断，短文本填充
-        
+        self.encodings = tokenizer(texts, truncation=True, padding=True, max_length=128, return_tensors="pt")
+
     def __len__(self):
-        return len(self.encodings.input_ids)  # 返回数据集长度
+        return len(self.encodings.input_ids)
 
     def __getitem__(self, idx):
-        item = {key: val[idx] for key, val in self.encodings.items()}  # 根据索引获取数据集中的一个样本
+        item = {key: val[idx] for key, val in self.encodings.items()}
         return item
 
-# 启动文章情感分析
-def main():
+def main(articleDataFilePath):
+    # 读取数据
+    df = pd.read_csv(articleDataFilePath)
+
     # 创建数据加载器，将 df 中 content 列的数据转换为列表并传入
     text_dataset = TextDataset(df['content'].tolist())  # 使用 'content' 列
 
-    # 若使用GPU，则设置多个工作进程，：
-    # text_loader = DataLoader(text_dataset, batch_size=80, num_workers=32)
-    
+    # 若使用GPU，则设置多个工作进程：
+    # text_loader = DataLoader(text_dataset, batch_size=80, num_workers=24)
+
     # 使用cpu：将 text_dataset 封装成可迭代的数据加载器。batch_size=1 表示每次处理一个样本，适用于CPU环境。
     text_loader = DataLoader(text_dataset, batch_size=1) 
-
 
     # 预测函数
     def predict(loader):
         model.eval()
         predictions = []
-        with torch.no_grad():
-            for batch in tqdm(loader, desc="Predicting"):  # 使用tqdm添加进度条
-                batch = {k: v.to(device) for k, v in batch.items()}
-                outputs = model(**batch)
+        with torch.no_grad(): # 在预测阶段，不需要计算梯度，关闭梯度计算可以减少内存消耗，提高计算速度。
+            for batch in tqdm(loader, desc="Predicting"):  # 添加进度条，遍历 loader 中的每个批次数据。
+                batch = {k: v.to(device) for k, v in batch.items()}  # 将批次数据中的每个张量移动到指定的设备（CPU 或 GPU）上。
+                outputs = model(**batch) 
                 logits = outputs.logits
-                preds = torch.argmax(logits, dim=1)
-                predictions.extend(preds.cpu().numpy())
+                preds = torch.argmax(logits, dim=1) # 使用 torch.argmax 函数找到 logits 中每个样本的最大值索引，作为预测的类别标签。
+                predictions.extend(preds.cpu().numpy()) # 将预测结果从 GPU 移动到 CPU，并转换为 NumPy 数组，然后添加到 predictions 列表中。
         return predictions
 
     # 进行预测
     predictions = predict(text_loader)
 
     # 将数值标签映射为文本标签
-    label_map = {0: '负面', 1: '正面'}
+    label_map = {0: '消极', 1: '积极'}
     text_labels = [label_map[pred] for pred in predictions]
 
     # 将预测结果添加到DataFrame
     df['sentiment'] = text_labels
 
     # 保存预测结果到新的CSV文件
-    df.to_csv('analysis_article.csv', index=False)
+    df.to_csv(articleDataFilePath, index=False)
+
 
 if __name__ == '__main__':
     main()
